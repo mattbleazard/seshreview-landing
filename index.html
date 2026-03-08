@@ -983,7 +983,15 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script>
+    // ── Supabase client ──
+    const { createClient } = supabase;
+    const sb = createClient(
+      'https://vombditbxuogufnedqof.supabase.co',
+      'sb_publishable_qMAFg-Kiy2RmL3mKQQk4NQ_umcqU4Mf'
+    );
+
     // ── Scroll-triggered reveal ──
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
@@ -1018,7 +1026,7 @@
       const form = document.getElementById(formId);
       const success = document.getElementById(successId);
 
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const input = form.querySelector('input[type="email"]');
         const email = input.value.trim();
@@ -1034,13 +1042,24 @@
         btn.disabled = true;
         btn.textContent = 'Joining...';
 
-        // Placeholder — log to console; swap for real API endpoint
-        console.log('Waitlist signup:', email);
-
-        setTimeout(() => {
+        try {
+          const { error } = await sb.from('waitlist').insert({ email });
+          if (error) {
+            if (error.code === '23505') {
+              // Duplicate email — treat as success
+            } else {
+              throw error;
+            }
+          }
           form.style.display = 'none';
           success.classList.add('show');
-        }, 600);
+        } catch (err) {
+          console.error('Waitlist signup error:', err);
+          btn.disabled = false;
+          btn.textContent = 'Join the Waitlist';
+          input.style.borderColor = '#DC2626';
+          setTimeout(() => { input.style.borderColor = ''; }, 2000);
+        }
       });
     }
 

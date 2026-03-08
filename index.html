@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeshReview — Your AI-Powered Therapy Companion</title>
+  <meta name="description" content="Record, transcribe, and reflect on your therapy sessions with intelligent AI insights that help you grow between appointments.">
+  <meta name="theme-color" content="#2D6A4F">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SeshReview — Your AI-Powered Therapy Companion">
+  <meta property="og:description" content="Record, transcribe, and reflect on your therapy sessions with intelligent AI insights.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://seshreview.com">
+  <meta property="og:image" content="https://seshreview.com/og-image.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SeshReview — Your AI-Powered Therapy Companion">
+  <meta name="twitter:description" content="Record, transcribe, and reflect on your therapy sessions with intelligent AI insights.">
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Reset & Variables ─── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #2D6A4F;
+      --primary-light: #52B788;
+      --primary-soft: #D8F3DC;
+      --primary-dark: #1B4332;
+      --primary-muted: #95D5B2;
+      --bg: #FAF9F6;
+      --bg-secondary: #F0EFEB;
+      --card: #FFFFFF;
+      --border: #E7E5E4;
+      --text: #1C1917;
+      --text-secondary: #78716C;
+      --text-tertiary: #A8A29E;
+      --text-on-primary: #FFFFFF;
+      --amber: #F59E0B;
+      --shadow: rgba(120, 113, 108, 0.08);
+      --shadow-lg: rgba(120, 113, 108, 0.14);
+      --serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+      --sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius-card: 16px;
+      --radius-pill: 999px;
+      --max-width: 1100px;
+      --transition: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--sans);
+      font-weight: 400;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.022;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px;
+    }
+
+    /* ─── Utilities ─── */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── Animations ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(1deg); }
+    }
+
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.4; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── Navigation ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      transition: background 0.4s ease, box-shadow 0.4s ease, padding 0.3s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(250, 249, 246, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 var(--border);
+      padding: 12px 0;
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--primary-dark);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-logo span {
+      color: var(--primary-light);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      background: var(--primary);
+      color: var(--text-on-primary);
+      border: none;
+      border-radius: var(--radius-pill);
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s var(--transition);
+      letter-spacing: 0.2px;
+    }
+
+    .nav-cta:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(45, 106, 79, 0.25);
+    }
+
+    .nav-cta svg {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.3s var(--transition);
+    }
+
+    .nav-cta:hover svg {
+      transform: translateX(2px);
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      position: relative;
+      padding: 160px 0 100px;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Organic decorative shapes */
+    .hero-decor {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+    }
+
+    .hero-blob-1 {
+      width: 500px;
+      height: 500px;
+      background: var(--primary-soft);
+      top: -120px;
+      right: -100px;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .hero-blob-2 {
+      width: 350px;
+      height: 350px;
+      background: var(--primary-muted);
+      bottom: -60px;
+      left: -80px;
+      animation: float 10s ease-in-out infinite 2s;
+      opacity: 0.2;
+    }
+
+    .hero-blob-3 {
+      width: 200px;
+      height: 200px;
+      background: #F59E0B;
+      top: 30%;
+      right: 15%;
+      animation: float 12s ease-in-out infinite 4s;
+      opacity: 0.08;
+    }
+
+    /* Botanical ring decoration */
+    .hero-ring {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border: 1px solid var(--primary-muted);
+      border-radius: 50%;
+      right: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.15;
+      animation: spin-slow 60s linear infinite;
+    }
+
+    .hero-ring::before {
+      content: '';
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border: 1px solid var(--primary-muted);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hero-ring::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content {
+      max-width: 640px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--primary-soft);
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--primary);
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s var(--transition) both;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .hero-badge-dot::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border: 1.5px solid var(--primary-light);
+      border-radius: 50%;
+      animation: pulse-ring 2s ease-out infinite;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(38px, 5.5vw, 62px);
+      line-height: 1.08;
+      color: var(--text);
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+      animation: fadeUp 0.8s var(--transition) 0.15s both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--primary);
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 1.8vw, 19px);
+      color: var(--text-secondary);
+      line-height: 1.65;
+      max-width: 520px;
+      margin-bottom: 36px;
+      font-weight: 300;
+      animation: fadeUp 0.8s var(--transition) 0.3s both;
+    }
+
+    .hero-form {
+      animation: fadeUp 0.8s var(--transition) 0.45s both;
+    }
+
+    .email-form {
+      display: flex;
+      gap: 10px;
+      max-width: 460px;
+    }
+
+    .email-form input {
+      flex: 1;
+      min-width: 0;
+      padding: 15px 20px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-card);
+      font-family: var(--sans);
+      font-size: 15px;
+      color: var(--text);
+      background: var(--card);
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .email-form input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .email-form input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.12);
+    }
+
+    .email-form button {
+      padding: 15px 28px;
+      background: var(--primary);
+      color: var(--text-on-primary);
+      border: none;
+      border-radius: var(--radius-card);
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s var(--transition);
+      letter-spacing: 0.2px;
+    }
+
+    .email-form button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(45, 106, 79, 0.3);
+    }
+
+    .email-form button:active {
+      transform: translateY(0);
+    }
+
+    .email-form button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .hero-trust {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      animation: fadeUp 0.8s var(--transition) 0.6s both;
+      letter-spacing: 0.2px;
+    }
+
+    .hero-trust svg {
+      width: 13px;
+      height: 13px;
+      vertical-align: -2px;
+      margin-right: 4px;
+      color: var(--primary-muted);
+    }
+
+    .form-success {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 20px;
+      background: rgba(82, 183, 136, 0.1);
+      border: 1px solid rgba(82, 183, 136, 0.25);
+      border-radius: var(--radius-card);
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 500;
+      max-width: 460px;
+      animation: fadeUp 0.5s var(--transition);
+    }
+
+    .form-success.show {
+      display: flex;
+    }
+
+    .form-success svg {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+
+    /* ─── Features ─── */
+    .features {
+      padding: 80px 0 100px;
+      position: relative;
+    }
+
+    .features::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 64px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .section-heading {
+      text-align: center;
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.5vw, 40px);
+      letter-spacing: -0.8px;
+      color: var(--text);
+      margin-bottom: 14px;
+      line-height: 1.15;
+    }
+
+    .section-sub {
+      text-align: center;
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto 56px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 36px 32px;
+      transition: all 0.4s var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--primary-muted);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px var(--shadow);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-card:nth-child(1) .feature-icon { background: var(--primary-soft); color: var(--primary); }
+    .feature-card:nth-child(2) .feature-icon { background: #FEF3C7; color: #D97706; }
+    .feature-card:nth-child(3) .feature-icon { background: #DBEAFE; color: #2563EB; }
+    .feature-card:nth-child(4) .feature-icon { background: #F3E8FF; color: #7C3AED; }
+
+    .feature-title {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .feature-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ─── Bottom CTA ─── */
+    .bottom-cta {
+      padding: 80px 0;
+      background: linear-gradient(165deg, var(--primary-dark) 0%, var(--primary) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bottom-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px;
+      opacity: 0.04;
+    }
+
+    .bottom-cta-ring {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 50%;
+      left: -200px;
+      top: -200px;
+    }
+
+    .bottom-cta-ring::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .bottom-cta .container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .bottom-cta .section-heading {
+      color: var(--text-on-primary);
+      margin-bottom: 10px;
+    }
+
+    .bottom-cta .section-sub {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 36px;
+    }
+
+    .bottom-cta .email-form {
+      margin: 0 auto;
+      max-width: 440px;
+    }
+
+    .bottom-cta .email-form input {
+      border-color: rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-on-primary);
+    }
+
+    .bottom-cta .email-form input::placeholder {
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .bottom-cta .email-form input:focus {
+      border-color: rgba(255,255,255,0.35);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.08);
+    }
+
+    .bottom-cta .email-form button {
+      background: var(--text-on-primary);
+      color: var(--primary-dark);
+    }
+
+    .bottom-cta .email-form button:hover {
+      background: #f0f0ee;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    .bottom-cta .form-success {
+      margin: 0 auto;
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      color: var(--text-on-primary);
+    }
+
+    .social-proof {
+      margin-top: 24px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.55);
+      font-weight: 300;
+      letter-spacing: 0.2px;
+    }
+
+    .social-proof strong {
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 500;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--text);
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-weight: 300;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      letter-spacing: 0.2px;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-copy {
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .hero-ring {
+        width: 300px;
+        height: 300px;
+        right: -80px;
+        opacity: 0.1;
+      }
+      .hero-ring::before {
+        width: 220px;
+        height: 220px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 130px 0 70px;
+        min-height: auto;
+      }
+
+      .hero-ring { display: none; }
+
+      .hero-blob-1 {
+        width: 300px;
+        height: 300px;
+        top: -80px;
+        right: -60px;
+      }
+
+      .email-form {
+        flex-direction: column;
+      }
+
+      .email-form button {
+        text-align: center;
+      }
+
+      .features {
+        padding: 60px 0 70px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .feature-card {
+        padding: 28px 24px;
+      }
+
+      .bottom-cta {
+        padding: 60px 0;
+      }
+
+      .bottom-cta .email-form {
+        flex-direction: column;
+      }
+
+      footer .container {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+
+      .footer-left {
+        align-items: center;
+      }
+
+      .footer-links {
+        gap: 20px;
+      }
+    }
+
+    /* ─── Reduced Motion ─── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="container">
+      <a href="#" class="nav-logo">Sesh<span>Review</span></a>
+      <a href="#hero-form" class="nav-cta">
+        Join Waitlist
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-decor">
+      <div class="hero-blob hero-blob-1"></div>
+      <div class="hero-blob hero-blob-2"></div>
+      <div class="hero-blob hero-blob-3"></div>
+      <div class="hero-ring"></div>
+    </div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Coming Soon
+        </div>
+
+        <h1>Your AI-Powered <em>Therapy</em> Companion</h1>
+
+        <p class="hero-sub">
+          Record, transcribe, and reflect on your therapy sessions with intelligent insights that help you grow between appointments.
+        </p>
+
+        <div class="hero-form" id="hero-form">
+          <form class="email-form" id="waitlist-form-hero" novalidate>
+            <input type="email" placeholder="your@email.com" aria-label="Email address" required autocomplete="email">
+            <button type="submit">Join the Waitlist</button>
+          </form>
+          <div class="form-success" id="success-hero">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            <span>You're on the list! We'll be in touch soon.</span>
+          </div>
+        </div>
+
+        <p class="hero-trust">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Free to join &middot; No spam, ever &middot; Be the first to know when we launch
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <p class="section-label reveal">What You'll Get</p>
+      <h2 class="section-heading reveal">Everything for your<br>therapy journey</h2>
+      <p class="section-sub reveal">Designed to help you get more from every session, between every session.</p>
+
+      <div class="features-grid">
+        <!-- Smart Transcription -->
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Smart Transcription</h3>
+          <p class="feature-desc">Record sessions and get accurate AI transcriptions with one tap. Your words, captured perfectly.</p>
+        </div>
+
+        <!-- AI Insights -->
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+              <path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">AI Insights</h3>
+          <p class="feature-desc">Get summaries, reflection prompts, and cognitive pattern detection that deepen your self-awareness.</p>
+        </div>
+
+        <!-- Mood & Goal Tracking -->
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3v18h18"/>
+              <path d="m7 16 4-8 4 5 5-9"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Mood &amp; Goal Tracking</h3>
+          <p class="feature-desc">Track your emotional journey and therapy goals over time. See how far you've come.</p>
+        </div>
+
+        <!-- Private AI Chat -->
+        <div class="feature-card reveal">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              <path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Private AI Chat</h3>
+          <p class="feature-desc">Ask questions about your sessions and get personalized guidance, anytime you need it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="bottom-cta" id="waitlist">
+    <div class="bottom-cta-ring"></div>
+    <div class="container">
+      <h2 class="section-heading reveal">Start your journey</h2>
+      <p class="section-sub reveal">Be among the first to experience a smarter way to reflect on therapy.</p>
+
+      <div class="reveal">
+        <form class="email-form" id="waitlist-form-bottom" novalidate>
+          <input type="email" placeholder="your@email.com" aria-label="Email address" required autocomplete="email">
+          <button type="submit">Join the Waitlist</button>
+        </form>
+        <div class="form-success" id="success-bottom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>You're on the list! We'll be in touch soon.</span>
+        </div>
+      </div>
+
+      <p class="social-proof reveal">Join <strong>500+ people</strong> already on the waitlist</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-left">
+        <span class="footer-brand">SeshReview</span>
+        <span class="footer-tagline">Your therapy companion, between sessions.</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="mailto:hello@seshreview.com">Contact</a></li>
+      </ul>
+      <p class="footer-copy">&copy; 2026 SeshReview. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ── Scroll-triggered reveal ──
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger siblings
+          const siblings = Array.from(entry.target.parentElement.querySelectorAll('.reveal'));
+          const idx = siblings.indexOf(entry.target);
+          entry.target.style.transitionDelay = `${idx * 0.08}s`;
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Nav scroll state ──
+    const nav = document.getElementById('nav');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          nav.classList.toggle('scrolled', window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // ── Waitlist form handling ──
+    function handleSubmit(formId, successId) {
+      const form = document.getElementById(formId);
+      const success = document.getElementById(successId);
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = form.querySelector('input[type="email"]');
+        const email = input.value.trim();
+
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          input.style.borderColor = '#DC2626';
+          input.focus();
+          setTimeout(() => { input.style.borderColor = ''; }, 2000);
+          return;
+        }
+
+        const btn = form.querySelector('button');
+        btn.disabled = true;
+        btn.textContent = 'Joining...';
+
+        // Placeholder — log to console; swap for real API endpoint
+        console.log('Waitlist signup:', email);
+
+        setTimeout(() => {
+          form.style.display = 'none';
+          success.classList.add('show');
+        }, 600);
+      });
+    }
+
+    handleSubmit('waitlist-form-hero', 'success-hero');
+    handleSubmit('waitlist-form-bottom', 'success-bottom');
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — SeshReview</title>
+  <meta name="description" content="SeshReview Privacy Policy. Learn how we protect your therapy session data.">
+  <meta name="theme-color" content="#2D6A4F">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #2D6A4F;
+      --primary-light: #52B788;
+      --primary-soft: #D8F3DC;
+      --primary-dark: #1B4332;
+      --bg: #FAF9F6;
+      --card: #FFFFFF;
+      --border: #E7E5E4;
+      --text: #1C1917;
+      --text-secondary: #57534E;
+      --text-tertiary: #A8A29E;
+      --text-on-primary: #FFFFFF;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Outfit', system-ui, -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 249, 246, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+
+    nav .container {
+      max-width: 1100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--primary-dark);
+      text-decoration: none;
+    }
+
+    .nav-back {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+
+    .nav-back:hover { opacity: 0.7; }
+
+    /* ── Header ── */
+    .page-header {
+      padding: 64px 0 40px;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-family: var(--serif);
+      font-size: 42px;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .page-header .subtitle {
+      font-size: 16px;
+      color: var(--text-tertiary);
+      font-weight: 300;
+    }
+
+    /* ── Content ── */
+    .legal-content {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px;
+      margin-bottom: 80px;
+      box-shadow: 0 1px 3px rgba(120, 113, 108, 0.06);
+    }
+
+    .legal-content h2 {
+      font-family: var(--serif);
+      font-size: 24px;
+      color: var(--primary-dark);
+      margin-top: 40px;
+      margin-bottom: 16px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .legal-content h2:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .legal-content h3 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+
+    .legal-content p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.75;
+    }
+
+    .legal-content ul, .legal-content ol {
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+
+    .legal-content li {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      line-height: 1.65;
+    }
+
+    .legal-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .legal-content a {
+      color: var(--primary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--primary-light);
+      transition: opacity 0.2s;
+    }
+
+    .legal-content a:hover { opacity: 0.7; }
+
+    .highlight-box {
+      background: var(--primary-soft);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      border-left: 4px solid var(--primary);
+    }
+
+    .highlight-box p {
+      color: var(--primary-dark);
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-weight: 300;
+    }
+
+    footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: var(--primary); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .page-header { padding: 40px 0 28px; }
+      .page-header h1 { font-size: 32px; }
+      .legal-content { padding: 28px 20px; }
+      .legal-content h2 { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <a href="/" class="nav-brand">SeshReview</a>
+      <a href="/" class="nav-back">&larr; Back to Home</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Privacy Policy</h1>
+      <p class="subtitle">Last updated: March 8, 2026</p>
+    </div>
+
+    <div class="legal-content">
+
+      <div class="highlight-box">
+        <p>Your therapy data is deeply personal. We built SeshReview with privacy at the core — we will never sell, share, or use your data for advertising or AI model training.</p>
+      </div>
+
+      <h2>1. Overview</h2>
+      <p>SeshReview ("we", "our", "us") is a mobile application that helps users record, transcribe, and reflect on therapy sessions using artificial intelligence. This Privacy Policy explains how we collect, use, store, and protect your information when you use SeshReview.</p>
+      <p>By using SeshReview, you agree to the collection and use of information in accordance with this policy. If you do not agree, please do not use the app.</p>
+
+      <h2>2. Information We Collect</h2>
+
+      <h3>Account Information</h3>
+      <p>When you create an account, we collect:</p>
+      <ul>
+        <li><strong>Email address</strong> — used for authentication, password resets, and essential account communications</li>
+        <li><strong>Password</strong> — stored securely by our authentication provider (Supabase) using industry-standard hashing; we never have access to your plaintext password</li>
+      </ul>
+
+      <h3>Session Data</h3>
+      <p>When you use SeshReview's core features, the following data is generated:</p>
+      <ul>
+        <li><strong>Audio recordings</strong> — recorded locally on your device and uploaded to our server solely for transcription processing</li>
+        <li><strong>Transcripts</strong> — generated from your audio by OpenAI's Whisper speech recognition service</li>
+        <li><strong>AI-generated insights</strong> — summaries, reflection prompts, cognitive pattern analysis, and follow-up questions generated by OpenAI's language models</li>
+        <li><strong>Chat conversations</strong> — messages you send to the AI assistant and the responses generated</li>
+      </ul>
+
+      <h3>Self-Reported Data</h3>
+      <ul>
+        <li><strong>Mood check-ins</strong> — mood ratings, emotion tags, and optional notes you enter</li>
+        <li><strong>Journal entries</strong> — text you write in the journaling feature</li>
+        <li><strong>Therapy goals</strong> — goals and milestones you create and track</li>
+        <li><strong>Session prep notes</strong> — notes you create for upcoming sessions</li>
+        <li><strong>Saved quotes</strong> — transcript excerpts you choose to highlight</li>
+      </ul>
+
+      <h3>Automatically Collected Data</h3>
+      <ul>
+        <li><strong>Device type and operating system</strong> — for compatibility and troubleshooting</li>
+        <li><strong>App version</strong> — to ensure you have the latest features and security updates</li>
+      </ul>
+      <p>We do <strong>not</strong> collect location data, contacts, browsing history, or any data from other apps on your device.</p>
+
+      <h2>3. How We Use Your Information</h2>
+      <p>We use your information solely to provide and improve the SeshReview service:</p>
+      <ul>
+        <li><strong>Transcription</strong> — audio is sent to our server and processed via OpenAI Whisper to generate text transcripts</li>
+        <li><strong>AI Insights</strong> — transcripts are sent to OpenAI's language models to generate summaries, reflection prompts, cognitive distortion detection, follow-up questions, and chat responses</li>
+        <li><strong>Authentication</strong> — your email is used to verify your identity and secure your account</li>
+        <li><strong>Account communications</strong> — we may send password reset emails or critical security notifications</li>
+      </ul>
+
+      <div class="highlight-box">
+        <p>We never use your data for advertising, marketing profiling, or training AI models. Your therapy data exists solely to serve you.</p>
+      </div>
+
+      <h2>4. Third-Party Services</h2>
+      <p>SeshReview relies on the following third-party services to function:</p>
+
+      <h3>OpenAI</h3>
+      <p>We use OpenAI's API for transcription (Whisper) and language processing (GPT-4o-mini). Audio and text data is sent to OpenAI for processing. Per OpenAI's API data usage policy, data sent through the API is <strong>not used to train their models</strong>. See <a href="https://openai.com/policies/api-data-usage-policies" target="_blank" rel="noopener">OpenAI's API data usage policy</a> for details.</p>
+
+      <h3>Supabase</h3>
+      <p>We use Supabase for user authentication and account management. Supabase stores your email address and hashed password. See <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabase's privacy policy</a> for details.</p>
+
+      <p>We do not use any analytics, advertising, or tracking services.</p>
+
+      <h2>5. Data Storage and Security</h2>
+
+      <h3>Where Your Data Lives</h3>
+      <ul>
+        <li><strong>On your device</strong> — session data, mood entries, journal entries, goals, and preferences are stored locally on your device using encrypted storage</li>
+        <li><strong>In transit</strong> — all data transmitted between your device and our servers is encrypted using TLS (Transport Layer Security)</li>
+        <li><strong>On our servers</strong> — audio files are temporarily stored on our server during transcription processing and are not retained after the transcript is generated and returned to your device</li>
+        <li><strong>Authentication data</strong> — stored by Supabase in secure, SOC 2 compliant infrastructure</li>
+      </ul>
+
+      <h3>Security Measures</h3>
+      <ul>
+        <li>TLS encryption for all data in transit</li>
+        <li>Authenticated API access using JSON Web Tokens (JWT)</li>
+        <li>Per-user rate limiting to prevent abuse</li>
+        <li>Secure password hashing (bcrypt) via Supabase</li>
+        <li>No plaintext storage of passwords or tokens</li>
+      </ul>
+
+      <h2>6. Data Retention</h2>
+      <ul>
+        <li><strong>Session data</strong> — stored on your device for as long as you keep it. You can delete individual sessions or all data at any time from within the app.</li>
+        <li><strong>Audio files</strong> — temporarily processed on our server for transcription, then discarded. We do not maintain a permanent copy of your recordings.</li>
+        <li><strong>Account data</strong> — retained until you delete your account.</li>
+        <li><strong>Waitlist emails</strong> — retained until launch or until you request removal.</li>
+      </ul>
+
+      <h2>7. Your Rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li><strong>Access</strong> — view all data stored in the app on your device at any time</li>
+        <li><strong>Delete</strong> — delete individual sessions, journal entries, mood check-ins, goals, or your entire account</li>
+        <li><strong>Export</strong> — your data is stored locally and accessible on your device</li>
+        <li><strong>Withdraw consent</strong> — stop using the app at any time; uninstalling removes all locally stored data</li>
+        <li><strong>Contact us</strong> — request information about your data or ask for account deletion by emailing <a href="mailto:support@seshreview.com">support@seshreview.com</a></li>
+      </ul>
+
+      <h2>8. Children's Privacy</h2>
+      <p>SeshReview is not intended for use by anyone under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that a child under 13 has provided us with personal information, we will take steps to delete that information.</p>
+
+      <h2>9. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. We will notify you of any material changes by updating the "Last updated" date at the top of this page and, where appropriate, through in-app notification. Your continued use of SeshReview after changes are posted constitutes acceptance of the updated policy.</p>
+
+      <h2>10. Contact Us</h2>
+      <p>If you have any questions about this Privacy Policy or how we handle your data, please contact us:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:support@seshreview.com">support@seshreview.com</a></li>
+        <li><strong>Website:</strong> <a href="https://seshreview.com">seshreview.com</a></li>
+      </ul>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 SeshReview. All rights reserved. &nbsp;|&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;|&nbsp; <a href="/terms.html">Terms</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>

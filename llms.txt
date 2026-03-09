@@ -1,0 +1,69 @@
+# SeshReview
+
+> Your AI-Powered Therapy Companion
+
+SeshReview is a mobile app that helps therapy clients record, transcribe, and reflect on their therapy sessions using artificial intelligence. It is designed to bridge the gap between therapy appointments by helping users retain, understand, and build on what happens in each session.
+
+## What SeshReview Does
+
+SeshReview is a personal wellness tool — not a medical device, therapeutic service, or substitute for professional mental health care. All AI-generated content (summaries, insights, reflections) is intended as a personal reflection aid and should not be treated as clinical advice.
+
+### Core Features
+
+- **Session Recording & Transcription**: Users record therapy sessions with one tap. Audio is transcribed using OpenAI Whisper (batch processing, not real-time). Sessions of any length are handled with automatic chunking. Users can save and highlight key quotes from transcripts.
+
+- **AI-Powered Insights**: After transcription, the AI (GPT-4o-mini) generates session summaries with key takeaways, cognitive distortion detection (CBT-informed), personalized reflection prompts for journaling, and follow-up questions for the next session.
+
+- **Private AI Chat**: A context-aware AI assistant that can answer questions about past sessions, help users explore specific topics from therapy, and prepare talking points for the next appointment. Supports a "deep-dive mode" focused on a single session's full transcript.
+
+- **Mood & Goal Tracking**: Daily mood check-ins with emotion tagging (emoji-based). Therapy goals with milestones and progress tracking. Session statistics including total hours, session count, and weekly streaks.
+
+- **Journaling**: Free-write journal with AI-generated guided reflection prompts based on session content.
+
+- **Session Preparation**: Prep notes feature for planning what to discuss in upcoming therapy sessions.
+
+### What SeshReview Does NOT Do
+
+- Does not provide medical advice, diagnosis, or treatment
+- Does not replace a therapist or any mental health professional
+- Does not offer crisis intervention (users in crisis should contact emergency services)
+- Does not perform real-time transcription (uses batch processing after recording)
+- AI insights may contain inaccuracies and should be verified with a professional
+
+## Privacy & Data Handling
+
+SeshReview treats therapy data as deeply sensitive. Key privacy commitments:
+
+- **Data ownership**: Users own all their data — recordings, transcripts, journal entries, notes
+- **No selling or sharing**: User data is never sold, shared with third parties, or used for advertising
+- **No AI training**: Data sent through the OpenAI API is not used to train AI models (per OpenAI's API data usage policy)
+- **Local-first storage**: Session data, mood entries, journal entries, and goals are stored locally on the user's device
+- **Encryption**: All data is encrypted in transit (TLS) and at rest
+- **Temporary server processing**: Audio files are sent to the server for transcription and are not retained after the transcript is returned
+- **Delete anytime**: Users can delete individual sessions or their entire account at any time
+- **Authentication**: Secure email/password authentication via Supabase with JWT token-based API access
+
+## Technical Stack
+
+- **Mobile app**: React Native (Expo SDK 54)
+- **Backend**: Express.js server with OpenAI API integration
+- **Transcription**: OpenAI Whisper (batch mode)
+- **AI processing**: OpenAI GPT-4o-mini
+- **Authentication**: Supabase Auth (email/password with JWT)
+- **Local storage**: AsyncStorage (on-device)
+- **Landing page**: Static HTML/CSS/JS deployed on Vercel
+
+## Recording Consent
+
+Users are responsible for complying with all applicable laws regarding recording conversations. Many jurisdictions require consent from all parties being recorded. SeshReview advises users to inform their therapist and obtain explicit consent before recording any session.
+
+## Current Status
+
+SeshReview is in pre-launch / waitlist phase. Users can join the waitlist at seshreview.com to be notified when the app becomes available.
+
+## Links
+
+- Website: https://seshreview.com
+- Privacy Policy: https://seshreview.com/privacy.html
+- Terms of Service: https://seshreview.com/terms.html
+- Contact: support@seshreview.com

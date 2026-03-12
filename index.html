@@ -24,6 +24,37 @@
   <meta name="twitter:description" content="Record, transcribe, and reflect on your therapy sessions with intelligent AI insights.">
   <meta name="twitter:image" content="https://seshreview.com/og-image.png">
 
+  <!-- Canonical -->
+  <link rel="canonical" href="https://seshreview.com/">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "SeshReview",
+    "url": "https://seshreview.com",
+    "logo": "https://seshreview.com/logo.png",
+    "description": "AI-powered therapy companion that helps you record, transcribe, and reflect on your therapy sessions."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SeshReview",
+    "applicationCategory": "HealthApplication",
+    "description": "Record, transcribe, and reflect on your therapy sessions with AI-powered insights, cognitive distortion detection, and guided journaling.",
+    "url": "https://seshreview.com",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/PreOrder"
+    }
+  }
+  </script>
+
   <!-- Favicons & Touch Icons -->
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" type="image/png" href="/favicon.png" sizes="64x64">
@@ -1093,34 +1124,41 @@
     }
 
     .ui-chat-bubble {
-      padding: 14px 18px;
-      border-radius: 18px;
+      padding: 12px 16px;
+      border-radius: 20px;
       font-size: 13px;
       line-height: 1.55;
-      margin-bottom: 10px;
-      max-width: 88%;
+      margin-bottom: 8px;
+      max-width: 82%;
+      display: block;
+      clear: both;
     }
-    .ui-chat-bubble:last-child { margin-bottom: 0; }
     .ui-chat-user {
       background: var(--primary);
       color: white;
-      margin-left: auto;
-      border-bottom-right-radius: 6px;
+      float: right;
+      border-bottom-right-radius: 4px;
     }
+    .ui-chat-user + .ui-chat-ai,
+    .ui-chat-ai + .ui-chat-user,
+    .ui-chat-user + .ui-chat-typing { margin-top: 14px; }
     .ui-chat-ai {
       background: var(--bg);
       color: var(--text-secondary);
-      border-bottom-left-radius: 6px;
+      float: left;
+      border-bottom-left-radius: 4px;
     }
     .ui-chat-ai strong { color: var(--text); }
     .ui-chat-typing {
       display: flex;
-      gap: 4px;
-      padding: 16px 20px;
+      gap: 5px;
+      padding: 14px 18px;
       background: var(--bg);
-      border-radius: 18px;
-      border-bottom-left-radius: 6px;
-      max-width: 70px;
+      border-radius: 20px;
+      border-bottom-left-radius: 4px;
+      max-width: 64px;
+      clear: both;
+      float: left;
     }
     .ui-chat-typing span {
       width: 6px;
@@ -1755,9 +1793,9 @@
         <div class="feature-visual">
           <div class="feature-card-preview fc-violet">
             <div class="feature-card-inner">
-              <div class="ui-chat-user">What did my therapist suggest about handling stress at work?</div>
-              <div class="ui-chat-ai">In your last session, your therapist recommended <strong>the 5-4-3-2-1 grounding technique</strong> when you feel overwhelmed. She also suggested setting a daily boundary of not checking email after 6pm.</div>
-              <div class="ui-chat-user">Can you give me a journaling prompt about that?</div>
+              <div class="ui-chat-bubble ui-chat-user">What did my therapist suggest about handling stress at work?</div>
+              <div class="ui-chat-bubble ui-chat-ai">In your last session, your therapist recommended <strong>the 5-4-3-2-1 grounding technique</strong> when you feel overwhelmed. She also suggested setting a daily boundary of not checking email after 6pm.</div>
+              <div class="ui-chat-bubble ui-chat-user">Can you give me a journaling prompt about that?</div>
               <div class="ui-chat-typing"><span></span><span></span><span></span></div>
             </div>
           </div>
